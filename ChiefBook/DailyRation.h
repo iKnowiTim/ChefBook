@@ -37,16 +37,13 @@ namespace ChiefBook {
 	private: System::Windows::Forms::Button^  RemoveButton;
 	private: System::Windows::Forms::Button^  MainFormButton;
 
+
 	private: System::Windows::Forms::Form ^ otherform;
 	public:
 		DailyRation(System::Windows::Forms::Form ^ o)
 		{
 			otherform = o;
-			InitializeComponent();
-
-			//
-			//TODO: Add the constructor code here
-			//
+			InitializeComponent();			
 		}
 
 	protected:
@@ -74,6 +71,8 @@ namespace ChiefBook {
 		/// </summary>
 		void InitializeComponent(void)
 		{
+			System::Windows::Forms::ListViewItem^  listViewItem1 = (gcnew System::Windows::Forms::ListViewItem(L"Tim"));
+			System::Windows::Forms::ListViewItem^  listViewItem2 = (gcnew System::Windows::Forms::ListViewItem(L"StressesOut"));
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->NumOfPersonTextBox = (gcnew System::Windows::Forms::TextBox());
 			this->AcceptNumOfPersonButton = (gcnew System::Windows::Forms::Button());
@@ -123,11 +122,13 @@ namespace ChiefBook {
 			// listView1
 			// 
 			this->listView1->HideSelection = false;
+			this->listView1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ListViewItem^  >(2) { listViewItem1, listViewItem2 });
 			this->listView1->Location = System::Drawing::Point(37, 143);
 			this->listView1->Name = L"listView1";
 			this->listView1->Size = System::Drawing::Size(205, 404);
 			this->listView1->TabIndex = 3;
 			this->listView1->UseCompatibleStateImageBehavior = false;
+			this->listView1->View = System::Windows::Forms::View::List;
 			// 
 			// RecipeDescriptionListBox
 			// 
@@ -179,6 +180,7 @@ namespace ChiefBook {
 			this->CurrentRecipesListView->Size = System::Drawing::Size(205, 404);
 			this->CurrentRecipesListView->TabIndex = 3;
 			this->CurrentRecipesListView->UseCompatibleStateImageBehavior = false;
+			this->CurrentRecipesListView->View = System::Windows::Forms::View::List;
 			// 
 			// label3
 			// 
@@ -201,6 +203,7 @@ namespace ChiefBook {
 			this->AddButton->TabIndex = 2;
 			this->AddButton->Text = L"Добавить";
 			this->AddButton->UseVisualStyleBackColor = true;
+			this->AddButton->Click += gcnew System::EventHandler(this, &DailyRation::AddButton_Click);
 			// 
 			// RemoveButton
 			// 
@@ -212,6 +215,7 @@ namespace ChiefBook {
 			this->RemoveButton->TabIndex = 2;
 			this->RemoveButton->Text = L"Удалить";
 			this->RemoveButton->UseVisualStyleBackColor = true;
+			this->RemoveButton->Click += gcnew System::EventHandler(this, &DailyRation::RemoveButton_Click);
 			// 
 			// MainFormButton
 			// 
@@ -258,5 +262,12 @@ namespace ChiefBook {
 		otherform->Show();
 		this->Close();
 	}
+private: System::Void AddButton_Click(System::Object^  sender, System::EventArgs^  e) {
+	CurrentRecipesListView->Items->Add(listView1->SelectedItems[0]->Text);
+}
+
+private: System::Void RemoveButton_Click(System::Object^  sender, System::EventArgs^  e) {
+	CurrentRecipesListView->Items->RemoveAt(CurrentRecipesListView->SelectedIndices[0]);
+}
 };
 }

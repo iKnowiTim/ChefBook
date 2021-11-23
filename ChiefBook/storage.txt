@@ -1,0 +1,5 @@
+Bread 20 1 5
+Cheese 300 1 6
+Chocolate 100 2 3
+Egg 4.5 2 100
+Milk 45.96 0 10

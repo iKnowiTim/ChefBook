@@ -90,6 +90,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <AdditionalDependencies />
@@ -136,7 +137,11 @@
     <ClCompile Include="DailyRation.cpp" />
     <ClCompile Include="DBRecipes.cpp" />
     <ClCompile Include="MainForm.cpp" />
+    <ClCompile Include="Product.cpp" />
+    <ClCompile Include="Recipe.cpp" />
+    <ClCompile Include="RecipeBook.cpp" />
     <ClCompile Include="SplashScreen.cpp" />
+    <ClCompile Include="Storage.cpp" />
     <ClCompile Include="StorageForm.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -149,9 +154,13 @@
     <ClInclude Include="MainForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="Product.h" />
+    <ClInclude Include="Recipe.h" />
+    <ClInclude Include="RecipeBook.h" />
     <ClInclude Include="SplashScreen.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="Storage.h" />
     <ClInclude Include="StorageForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>

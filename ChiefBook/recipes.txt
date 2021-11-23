@@ -1,0 +1,2 @@
+"Omelet" "Yeeeah do this shit" 3 Egg 3 Milk 0.05 Cheese 0.05
+"Hot Chocolate" "MMMMM tasty" 2 Chocolate 1 Milk 0.25

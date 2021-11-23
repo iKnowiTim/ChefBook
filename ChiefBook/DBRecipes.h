@@ -1,5 +1,8 @@
 ﻿#pragma once
 
+#include <vector>
+#include <string>
+
 namespace ChiefBook {
 
 	using namespace System;
@@ -33,6 +36,31 @@ namespace ChiefBook {
 	private: System::Windows::Forms::ListBox^  selectedRecipeListBox;
 	private: System::Windows::Forms::Label^  addNewRecipeLabel;
 	private: System::Windows::Forms::TextBox^  nameRecipeTextBox;
+	private: System::Windows::Forms::DataGridView^  dataGridView1;
+	private: System::Windows::Forms::DataGridViewComboBoxColumn^  Column1;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^  Column2;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^  Column3;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	private: System::Windows::Forms::Form ^ otherform;
 	public:
@@ -41,9 +69,18 @@ namespace ChiefBook {
 			otherform = o;
 			InitializeComponent();
 
-			//
-			//TODO: Add the constructor code here
-			//
+			std::vector<std::string> products{
+				"123",
+				"234",
+				"345"
+			};
+
+			auto x = (DataGridViewComboBoxColumn^)dataGridView1->Columns[0];
+									
+			for (auto product : products) {
+				x->Items->Add(gcnew String(product.c_str()));
+			}
+			/*MessageBox::Show(x->Name);*/
 		}
 
 	protected:
@@ -79,6 +116,11 @@ namespace ChiefBook {
 			this->selectedRecipeListBox = (gcnew System::Windows::Forms::ListBox());
 			this->addNewRecipeLabel = (gcnew System::Windows::Forms::Label());
 			this->nameRecipeTextBox = (gcnew System::Windows::Forms::TextBox());
+			this->dataGridView1 = (gcnew System::Windows::Forms::DataGridView());
+			this->Column1 = (gcnew System::Windows::Forms::DataGridViewComboBoxColumn());
+			this->Column2 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->Column3 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// currentRecipesListBox
@@ -87,6 +129,7 @@ namespace ChiefBook {
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
 			this->currentRecipesListBox->FormattingEnabled = true;
 			this->currentRecipesListBox->ItemHeight = 25;
+			this->currentRecipesListBox->Items->AddRange(gcnew cli::array< System::Object^  >(4) { L"name", L"sdfsf", L"asdfasdf", L"sadfasdf" });
 			this->currentRecipesListBox->Location = System::Drawing::Point(55, 69);
 			this->currentRecipesListBox->Name = L"currentRecipesListBox";
 			this->currentRecipesListBox->Size = System::Drawing::Size(230, 479);
@@ -168,11 +211,44 @@ namespace ChiefBook {
 			this->nameRecipeTextBox->TabIndex = 7;
 			this->nameRecipeTextBox->Text = L"Название рецепта";
 			// 
+			// dataGridView1
+			// 
+			this->dataGridView1->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
+			this->dataGridView1->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(3) {
+				this->Column1,
+					this->Column2, this->Column3
+			});
+			this->dataGridView1->Location = System::Drawing::Point(674, 117);
+			this->dataGridView1->Name = L"dataGridView1";
+			this->dataGridView1->RowTemplate->Height = 24;
+			this->dataGridView1->Size = System::Drawing::Size(292, 485);
+			this->dataGridView1->TabIndex = 8;
+			// 
+			// Column1
+			// 
+			this->Column1->DisplayStyle = System::Windows::Forms::DataGridViewComboBoxDisplayStyle::ComboBox;
+			this->Column1->HeaderText = L"Name";
+			this->Column1->Name = L"Column1";
+			this->Column1->Resizable = System::Windows::Forms::DataGridViewTriState::True;
+			this->Column1->SortMode = System::Windows::Forms::DataGridViewColumnSortMode::Automatic;
+			// 
+			// Column2
+			// 
+			this->Column2->HeaderText = L"Count";
+			this->Column2->Name = L"Column2";
+			// 
+			// Column3
+			// 
+			this->Column3->HeaderText = L"Gramm";
+			this->Column3->Name = L"Column3";
+			this->Column3->ReadOnly = true;
+			// 
 			// DBRecipes
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1019, 679);
+			this->Controls->Add(this->dataGridView1);
 			this->Controls->Add(this->nameRecipeTextBox);
 			this->Controls->Add(this->addNewRecipeLabel);
 			this->Controls->Add(this->selectedRecipeListBox);
@@ -187,6 +263,7 @@ namespace ChiefBook {
 			this->ShowIcon = false;
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"Поваренная книга";
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 

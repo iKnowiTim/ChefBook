@@ -1,5 +1,8 @@
 ﻿#pragma once
 
+#include <msclr\marshal_cppstd.h>
+#include "Storage.h"
+
 namespace ChiefBook {
 
 	using namespace System;
@@ -31,16 +34,24 @@ namespace ChiefBook {
 	private: System::Windows::Forms::Button^  MainFormButton;
 
 
+
+	private: Storage* storage = new Storage();
+			 
+
+
 	private: System::Windows::Forms::Form ^ otherform;
 	public:
 		StorageForm(System::Windows::Forms::Form ^ o)
 		{
 			otherform = o;
-			InitializeComponent();
+			InitializeComponent();			
 
-			//
-			//TODO: Add the constructor code here
-			//
+			storage->load();			
+
+			for (auto& [name, quantity] : storage->quantities) {
+				StorageListView->Items->Add(gcnew String(name.c_str()));
+			}
+
 		}
 
 	protected:
@@ -80,10 +91,13 @@ namespace ChiefBook {
 			// 
 			this->StorageListView->HideSelection = false;
 			this->StorageListView->Location = System::Drawing::Point(36, 45);
+			this->StorageListView->MultiSelect = false;
 			this->StorageListView->Name = L"StorageListView";
 			this->StorageListView->Size = System::Drawing::Size(250, 545);
 			this->StorageListView->TabIndex = 0;
 			this->StorageListView->UseCompatibleStateImageBehavior = false;
+			this->StorageListView->View = System::Windows::Forms::View::List;
+			this->StorageListView->SelectedIndexChanged += gcnew System::EventHandler(this, &StorageForm::MainFormButton_Change);
 			// 
 			// ProductLabel
 			// 
@@ -165,5 +179,17 @@ namespace ChiefBook {
 		this->Close();
 		otherform->Show();
 	}
+
+private: System::Void MainFormButton_Change(System::Object^  sender, System::EventArgs^  e) {
+	if (StorageListView->SelectedItems->Count <= 0) {
+		return;
+	}
+
+	auto name = msclr::interop::marshal_as<std::string>(StorageListView->SelectedItems[0]->Text);
+	CurrentAmountProductLabel->Text = "Количество: " + storage->quantities[name].ToString();
+	ProductLabel->Text = "Продукт: " + StorageListView->SelectedItems[0]->Text;
+
+
+}
 };
 }
